@@ -3,6 +3,24 @@ var user_login = "TayG0";
 var user_id = "";
 var client_id = "va97w97mn1qzq0nlrjavlifr92lstz";
 
+var templateCard = "<div class=\"col-xs-3\"><div class=\"card\" style=\"width:128px\"><img class=\"card-img-top\" src=\"{THUMBURL}\" alt=\"Card image\"><div class=\"card-img-overlay\"><p class=\"card-text\">🙍‍{VIEWS}</p></div><div class=\"card-body\"><h6 class=\"card-title\">{USERNAME}</h6><p class=\"card-text\">{GAME}</p></div></div></div>";
+
+
+
+
+
+
+
+
+
+
+
+;
+
+
+
+
+
 $(document).ready(function(){
 
     loginToID(user_login);
@@ -48,7 +66,6 @@ function getFollows(id){
             });
 
             console.log(data);
-            console.log(add);
             getStreams(add);
 
         }
@@ -88,21 +105,10 @@ function getStreams(addon){
 function printStreams(data){
 
     $.each(data.data, function(index, value){
-
-        $("table").append(
-            "<tr id=\""+index+"\">"+
-            "<td>"+
-            value.user_name+
-            "</td>"+
-            "<td>"+
-            value.title+
-            "</td>"+
-            "</tr>"
-        );
-        
-        $("#" + index).click(function(){$(document).location = "https://www.twitch.tv/" + value.user_name})
+      $(".row").append(templateCard.replace("{USERNAME}", value.user_name).replace("{THUMBURL}", value.thumbnail_url).replace("{width}x{height}", "128x72").replace("{VIEWS}", "" + value.viewer_count))
+      console.log("Done.");
     });
     console.log("Done.");
-    chrome.browserAction.setBadgeText({text: data.data.length + ""})
-    chrome.browserAction.setBadgeBackgroundColor({color: "#9800ff"})
+    // chrome.browserAction.setBadgeText({text: data.data.length + ""})
+    // chrome.browserAction.setBadgeBackgroundColor({color: "#9800ff"})
 }
