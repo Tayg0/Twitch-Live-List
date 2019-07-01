@@ -17,21 +17,41 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
 
         <style>
+            /* width */
+            ::-webkit-scrollbar {
+            width: 6px;
+            }
+
+            /* Track */
+            ::-webkit-scrollbar-track {
+            background: #2b2b2b;
+            }
+
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            transition: background-color 0.5s ease;
+            background: rgb(75, 75, 75);
+            }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+            background: rgb(121, 121, 121);
+            }
 
             html, body{
                 font-family:'Roboto', sans-serif;
                 
                 /* min-height: 180px; */
                 /* padding: 0; */
-                 width: 406px;
+                 width: 384px;
                  background-color: #2b2b2b; 
             }
             .container-fluid{
                 margin: 2px;
             }
             .col-xs-3{
-                
-                padding: 3px;
+                padding: 2px;
             }
             .card{
                 background-color: #3a3a3a;
@@ -40,14 +60,14 @@
                 margin: 0;
                 padding: 0;
                 box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.349);
+                height: 45px;
             }
             .card-body{
-                padding: 6px;
+                padding: 5px;
             }
             .card-title{
                 padding: 0px;
                 margin: 0;
-                padding: 0;
                 color: #ffffff;
             }
             .card-text{
@@ -55,7 +75,9 @@
                 margin: 0;
                 font-size: 10px;
                 color: #b4b4b4;
-                
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             .card-img-overlay{
                 padding: 6px;
@@ -65,6 +87,17 @@
                 text-shadow: 1px 1px 5px rgb(0, 0, 0), 1px 1px 8px rgb(0, 0, 0);
                 color: #ffffff;
             }
+            .row .card{
+                transition: filter 0.2s ease;
+                filter: brightness(100%) saturate(100%);
+            }
+            .row:hover .card{
+                text-decoration: none;
+                cursor:pointer;
+                filter: brightness(140%) saturate(150%);
+            }
+
+
 
         </style>
 
@@ -72,26 +105,25 @@
 
     <body>
 
-        <div class="container-fluid">
-            <div class="row">
-
+        <div class="container-fluid" id="stream-list">
+            
             </div>
-        </div>
 
     </body>
         
 </html>
 
 
- <!-- <div class="col-xs-3">
-                    <div class="card" style="width:128px">
-                        <img class="card-img-top" src="https://static-cdn.jtvnw.net/previews-ttv/live_user_bobross-100x56.jpg" alt="Card image">
-                        <div class="card-img-overlay">
-                            <p class="card-text">🙍‍1376</p>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-title">John Doe</h6>
-                            <p class="card-text">Some example text.</p>
-                        </div>
-                    </div>
-                </div> -->
+<!-- <div class="col-xs-3">
+    <div class="card" style="width:128px">
+        <img class="card-img-top" src="https://static-cdn.jtvnw.net/previews-ttv/live_user_bobross-100x56.jpg"
+            alt="Card image">
+        <div class="card-img-overlay">
+            <p class="card-text">🙍‍1376</p>
+        </div>
+        <div class="card-body">
+            <h6 class="card-title">John Doe</h6>
+            <p class="card-text">Some example text.</p>
+        </div>
+    </div>
+</div> -->
