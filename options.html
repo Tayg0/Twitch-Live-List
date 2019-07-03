@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitch Live List</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/options.js"></script>
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid" id="options" style="margin:auto">
+
+        <div class="col-xs-12" style="padding:20px">
+            <div class="card mx-auto" style="width:256px; padding:10px">
+                <h6 class="card-title" style="margin: auto;">Live On Twitch</h6>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="card mx-auto" style="width:256px; padding:10px">
+                <form>
+                    <div class="form-group">
+                        <label for="input-username">Twitch.tv Username</label>
+                        <input type="text" class="form-control" id="input-username">
+                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        <p id="user-id" style="font-size: 9px; margin:0px"> ID: </p>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox-dark">
+                        <label class="form-check-label" for="checkbox-dark">Dark Mode</label>
+                    </div>
+                    <button type="button" class="btn btn-primary" style="margin:15px 0px; float: right"
+                        id="button-save">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
