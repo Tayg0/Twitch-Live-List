@@ -18,7 +18,7 @@ function save() {
 
     loginToID($("#input-username").val())
     console.log("Getting ID.");
-
+    console.log(JSON.parse(localStorage.game_ids));
 }
 
 function loginToID(login) {

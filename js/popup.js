@@ -1,6 +1,7 @@
-
-var templateCard = "<div class=\"col-xs-3\"><div class=\"card\" style=\"width:291px\"><div class=\"card-body\"><h6 class=\"card-title\">{USERNAME}</h6><p class=\"card-text\">{TITLE}</p></div></div></div>";
-var templateThumbCard = "<div class=\"col-xs-3\"><div class=\"card\" style=\"width:80px\"><img class=\"card-img\" src=\"{THUMBURL}\" alt=\"Stream Thumb\"></div></div>";
+var templateGameHeaderCard = "<div class=\"row\" id=\"{GAME-ID}\"><div class=\"col-xs-12 col-game-head\"><div class=\"card game-head\"><div class=\"card-body card-body-game-head\">{GAME}</div></div></div></div>";
+var templateCard = "<div class=\"col-xs-3 col-stream-info\"><div class=\"card stream-info\"><div class=\"card-body card-body-stream-info\"><h6 class=\"card-title\">{USERNAME}</h6><p class=\"card-text\">{TITLE}</p></div></div></div>";
+var templateThumbCard = "<div class=\"col-xs-3 col-stream-thumb\"><div class=\"card stream-thumb\" style=\"\"><img class=\"card-img\" src=\"{THUMBURL}\" alt=\"Stream Thumb\"></div></div>";
+var game_ids = JSON.parse(localStorage.game_ids);
 
 $(document).ready(function () {
     console.log("HERE BE INFO");
@@ -9,10 +10,19 @@ $(document).ready(function () {
 
 function printStreams(data) {
 
+    console.log(data);
+
     $.each(data, function (index, value) {
-        $("#stream-list").append("<div class=\"row\" id=\"stream-" + value.user_id + "\"></div>");
-        $("#stream-" + value.user_id).append(templateThumbCard.replace("{THUMBURL}", value.thumbnail_url).replace("{width}x{height}", "160x90"));
-        //$("#stream-"+value.user_id).append(templateThumbCard.replace("{THUMBURL}", value.thumbnail_url).replace("{width}x{height}", "80x45"));
+
+            if(!$("#"+value.game_id).length){
+            console.log("WOULD HAVE CREATED HEADER FOR " + game_ids[value.game_id]);
+            $("#stream-list").append(templateGameHeaderCard.replace("{GAME-ID}", value.game_id).replace("{GAME}", game_ids[value.game_id]));
+             }
+        
+
+        $("#"+value.game_id).after("<div class=\"row row-stream\" id=\"stream-" + value.user_id + "\"></div>");
+        $("#stream-" + value.user_id).append(templateThumbCard.replace("{THUMBURL}", value.thumbnail_url).replace("{width}x{height}", "320x180"));
+        //$("#stream-"+value.user_id).append(templateThumbCard.replace("{THUMBURL}", value.thumbnail_url).replace("{width}x{height}", "80x45"320x180));
         $("#stream-" + value.user_id).append(templateCard.replace("{USERNAME}", value.user_name).replace("{TITLE}", value.title));
         $("#stream-" + value.user_id).click(function () { chrome.tabs.create({ url: "https://www.twitch.tv/" + encodeURI(value.user_name) }) })
         console.log("Done.");
