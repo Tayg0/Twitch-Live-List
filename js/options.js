@@ -10,6 +10,11 @@ $(document).ready(function () {
 
     $("#button-save").click(function () { save() });
 
+    if (localStorage.dark == "true") {
+        document.getElementById("theme").href = "css/dark.css";
+        // console.log("DARKED")
+    }
+
 });
 
 function save() {
