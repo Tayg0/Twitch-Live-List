@@ -150,10 +150,10 @@ body{
     font-size: 10px;
     color: #b4b4b4;
 }
-*{
+#stream-list *{
     pointer-events: none;
     -webkit-user-select: none;
 }
-.row,.col-stream-thumb{
+#stream-list .row,#stream-list .col-stream-thumb{
     pointer-events: all;
 }
