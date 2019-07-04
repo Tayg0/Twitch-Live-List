@@ -1,115 +1,159 @@
-  /* width */
-  ::-webkit-scrollbar {
+/* width */
+::-webkit-scrollbar {
     width: 6px;
-    }
+}
 
-    /* Track */
-    ::-webkit-scrollbar-track {
+/* Track */
+::-webkit-scrollbar-track {
     background: #2b2b2b;
-    }
+}
 
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
+/* Handle */
+::-webkit-scrollbar-thumb {
     border-radius: 4px;
     /* transition: background 0.5s ease; */
     background: rgb(75, 75, 75);
-    }
+}
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
     background:  #616161;
-    }
+}
 
-    /* html {
-        overflow: -moz-scrollbars-vertical; 
-        overflow-y: scroll;
-    } */
+/* html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+} */
 
-    body{
-        font-family:'Roboto', sans-serif;
-         color: white;
-         background-color: #2b2b2b; 
-    }
-    .container-fluid{
-        width: 408px;
-        margin: 2px;
-        padding: 0px;
-    }
-    .col-xs-3, .col-xs-12{/*POTENTIAL SOLUTION*/
-        margin: 2px;
-        padding: 0px;
-    }
-    .card{
-        background-color: #3a3a3a;
-        border-color: #3a3a3a;
-        border-width: 0px;
-        margin: 0px;
-        padding: 0px;
-        box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.349);
-        
-    }
-    .card-body{
-        padding: 5px;
-    }
-    .card-body-game-head{
-        text-align: center;
-    }
-    .card-title{
-        padding: 0px;
-        margin: 0px;
-        color: #ffffff;
-    }
-    .card-text{
-        padding: 0px;
-        margin: 0px;
-        font-size: 10px;
-        color: #b4b4b4;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-     .row{
-        padding:0px;
-        margin:0px;
-    }
-    .row.row-stream:hover{
-        text-decoration: none;
-        cursor:pointer;
-    }
-    .row .card{
-        transition: filter 0.3s ease, height 0.3s ease, width 0.3s ease, background-color 0.3s ease;
-        filter: brightness(100%) saturate(110%);
-    } 
-    .row:hover .stream-info{
-        
-        background-color: #616161;
-    } 
-    .row:hover .stream-thumb{
-        
-        filter: brightness(160%) saturate(130%);
-    } 
+body{
+    font-family:'Roboto', sans-serif;
+    color: white;
+    background-color: #2b2b2b; 
+}
+.container-fluid{
+    width: 408px;
+    margin: 2px;
+    padding: 0px;
+}
+.col-xs-3, .col-xs-12{/*POTENTIAL SOLUTION*/
+    margin: 2px;
+    padding: 0px;
+}
+.card{
+    background-color: #3a3a3a;
+    border-color: #3a3a3a;
+    border-width: 0px;
+    margin: 0px;
+    padding: 0px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.349);
     
-    .col-game-head{
-        width: 404px;
+}
+.card-body{
+    padding: 5px;
+}
+.card-body-game-head{
+    text-align: center;
+}
+.card-title{
+    padding: 0px;
+    margin: 0px;
+    color: #ffffff;
+}
+.card-text{
+    padding: 0px;
+    margin: 0px;
+    font-size: 10px;
+    color: #b4b4b4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+    .row{
+    padding:0px;
+    margin:0px;
+}
+.row.row-stream:hover{
+    text-decoration: none;
+    cursor:pointer;
+}
+.row .card{
+    transition: filter 0.3s ease, height 0.3s ease, width 0.3s ease, background-color 0.3s ease;
+    filter: brightness(100%) saturate(110%);
+} 
+.row:hover .stream-info{
+    
+    background-color: #616161;
+} 
+.row:hover .stream-thumb{
+    
+    filter: brightness(130%) saturate(120%);
+} 
 
-    }
-    .game-head{
-        font-size: 12px;
-        background-color: #58497a;
-        color: #e9e1fa;
-    }
+.col-game-head{
+    width: 404px;
 
-    .col-stream-info{
-        transition: height 0.3s ease, width 0.3s ease;
-        width:320px;
-        height: 45px;
-    }
-    .col-stream-thumb{ 
-        transition: height 0.3s ease, width 0.3s ease;
-        width:80px;
-        height: 45px;
-    } 
-    .card-body-stream-info{
-        height: 45px;
-    }
+}
+.game-head{
+    font-size: 12px;
+    background-color: #58497a;
+    color: #e9e1fa;
+}
 
+
+.col-stream-info, .card-body-stream-info{
+    transition: height 0.3s ease, width 0.3s ease, max-width 0.3s ease;
+    width:320px;
+    height: 45px;
+}
+.col-stream-thumb{ 
+    transition: height 0.3s ease, width 0.3s ease;
+    width:80px;
+    height: 45px;
+} 
+.stream-thumb{ 
+    transition: height 0.3s ease, width 0.3s ease;
+    width:100%;
+    height: 100%;
+} 
+.stream-info{
+    transition: height 0.3s ease, width 0.3s ease;
+
+}
+.card-img{
+    transition: height 0.3s ease, width 0.3s ease;
+    width:80px;
+    height: 45px;
+}
+
+.col-stream-thumb:hover + .col-stream-info, .col-stream-thumb:hover + .col-stream-info .card-body-stream-info{
+    width: 240px;
+    height: 90px;
+}
+.col-stream-thumb:hover + .col-stream-info .card-text{
+    white-space: normal;
+}
+/* .stream-thumb:hover .card-img{
+    width: 160px;
+    height: 90px;
+} */
+/* .stream-thumb:hover{
+    width: 100%;
+    height: 100%;
+} */
+.col-stream-thumb:hover, .col-stream-thumb:hover .card-img{
+    width: 160px;
+    height: 90px;
+}
+
+.viewers-text{
+    float: right;
+    font-size: 10px;
+    color: #b4b4b4;
+}
+*{
+    pointer-events: none;
+    -webkit-user-select: none;
+}
+.row,.col-stream-thumb{
+    pointer-events: all;
+}
