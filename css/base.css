@@ -1,14 +1,18 @@
+/*-------------------------------------------------------------------------Theme Color Variables-------------------------------------------------------------------------*/
+ 
  :root{
-    --background-color: #d8d8d8;
-    --card-background-color: #ffffff;
-    --card-highlight-color: #f4f0ff;
-    --game-header-background-color: linear-gradient(180deg, #6642a1 0%, #58497a 100%);
+    --background-color: #e0e0e0;
+    --card-background-color: #f2f2f2;
+    --card-highlight-color: #ffffff;
+    --game-header-background-color: linear-gradient(180deg, hsl(263, 42%, 55%) 0%, hsl(258, 25%, 43%) 100%);
     --game-header-text-color:#e9e1fa;
     --game-info-text-color:#000000;
     --game-info-subtext-color: #5e5e5e;
+    --badge-color: #7248b4;
 }
 
-/* Viewer Count Icon */
+
+/*-------------------------------------------------------------------------Viewer Count Icon-------------------------------------------------------------------------*/
 
 .circle {
     height: 5px;
@@ -20,7 +24,7 @@
   }
 
 
-/* Scroll Bar Styling */
+/*-------------------------------------------------------------------------Scroll Bar Styling-------------------------------------------------------------------------*/
 
 ::-webkit-scrollbar { /* Width */
     width: 6px;
@@ -35,10 +39,12 @@
     background: var(--card-background-color);
 }
 
-::-webkit-scrollbar-thumb:hover { /* Handle on hover */
+::-webkit-scrollbar-thumb:hover { /* Handle Hover */
     background:  var(--card-highlight-color);
 }
 
+
+/*-------------------------------------------------------------------------Global Styling-------------------------------------------------------------------------*/
 
 body{
     font-family:'Roboto', sans-serif;
@@ -50,7 +56,7 @@ body{
     margin: 2px;
     padding: 0px;
 }
-.col-xs-3, .col-xs-12{/*POTENTIAL SOLUTION*/
+.col-xs-3, .col-xs-12{
     margin: 2px;
     padding: 0px;
 }
@@ -83,11 +89,11 @@ body{
     overflow: hidden;
     text-overflow: ellipsis;
 }
-    .row{
+.row{
     padding:0px;
     margin:0px;
 }
-.row.row-stream:hover{
+.row-stream:hover{
     text-decoration: none;
     cursor:pointer;
 }
@@ -101,7 +107,6 @@ body{
     
     filter: brightness(140%) saturate(120%);
 } 
-
 .col-game-head{
     width: 384px;
 
@@ -109,11 +114,39 @@ body{
 .game-head{
     font-size: 11px;
     background: var(--game-header-background-color);
-    /* #6642A1 */
     color: var(--game-header-text-color);
     height: 24px;
 }
+#user-id{
+    color: var(--game-info-subtext-color);
+}
+.viewers-text{
+    float: right;
+    font-size: 10px;
+    color: var(--game-info-subtext-color);
+}
+#stream-list *{
+    pointer-events: none;
+    -webkit-user-select: none;
+}
+#stream-list .row,#stream-list .col-stream-thumb{
+    pointer-events: all;
+}
 
+
+/*-------------------------------------------------------------------------Options Button Animations-------------------------------------------------------------------------*/
+
+.btn-primary{
+    background: var(--game-header-background-color);
+    border: 0px;
+    box-shadow: 0px 1px 2px #00000025, 0px 4px 8px #00000025;
+}
+.btn-primary:focus, .btn-primary:hover{
+    filter:brightness(140%);
+}
+
+
+/*-------------------------------------------------------------------------Popup Hover Animations-------------------------------------------------------------------------*/
 
 .col-stream-info, .card-body-stream-info{
     transition: height 0.4s ease, width 0.4s ease, max-width 0.4s ease;
@@ -139,42 +172,17 @@ body{
     width:80px;
     height: 45px;
 }
-
 .col-stream-thumb:hover + .col-stream-info, .col-stream-thumb:hover + .col-stream-info .card-body-stream-info{
-    width: 240px;
+    width: 220px;
     height: 90px;
 }
 .col-stream-thumb:hover + .col-stream-info .card-text{
     white-space: normal;
 }
-
 .col-stream-thumb:hover, .col-stream-thumb:hover .card-img{
-    width: 140px;
+    width: 160px;
     height: 90px;
 }
 
-.viewers-text{
-    float: right;
-    font-size: 10px;
-    color: var(--game-info-subtext-color);
-}
-#stream-list *{
-    pointer-events: none;
-    -webkit-user-select: none;
-}
-#stream-list .row,#stream-list .col-stream-thumb{
-    pointer-events: all;
-}
 
-.btn-primary{
-    background: linear-gradient(180deg, #6642a1 0%, #58497a 100%);
-    border: 0px;
-    box-shadow: 0px 1px 2px #00000025, 0px 4px 8px #00000025;
-}
-.btn-primary:focus, .btn-primary:hover{
-    background: linear-gradient(180deg, #9c7ad3 0%,  #6642a1 100%);
-}
 
-#user-id{
-    color: var(--game-info-subtext-color);
-}
