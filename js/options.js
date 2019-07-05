@@ -1,8 +1,8 @@
 var client_id = "va97w97mn1qzq0nlrjavlifr92lstz";
 var background = chrome.extension.getBackgroundPage();
         
-$(document).ready(function () {
 
+$(document).ready(function () {
 
     $("#input-username").val(localStorage.username);
     $("#checkbox-dark").prop("checked", localStorage.dark == "true");
@@ -12,18 +12,17 @@ $(document).ready(function () {
 
     if (localStorage.dark == "true") {
         document.getElementById("theme").href = "css/dark.css";
-        // console.log("DARKED")
     }
 
+   
 });
+
+
 
 function save() {
 
-
-
     loginToID($("#input-username").val())
-    console.log("Getting ID.");
-    console.log(JSON.parse(localStorage.game_ids));
+
 }
 
 function loginToID(login) {
@@ -38,13 +37,21 @@ function loginToID(login) {
             'Client-ID': client_id
         },
         success: function (data) {
+            console.log(data);
+            if(data.data.length > 0){
+                background = chrome.extension.getBackgroundPage();
+                localStorage.configured = "true";
+                localStorage.username = data.data[0].display_name;
+                localStorage.dark = $("#checkbox-dark").prop("checked");
+                localStorage.user_id = data.data[0].id;
+                background.getFollows(data.data[0].id);
+                
+                location.reload();
+            }else{
+                $("#input-username").css({"border-width":"2px", "border-color":"red"});
 
-            localStorage.username = $("#input-username").val();
-            localStorage.dark = $("#checkbox-dark").prop("checked");
-            localStorage.user_id = data.data[0].id;
-            background.getFollows(data.data[0].id);
-            console.log("Saved.");
-            location.reload();
+            }
+            
            
 
         }

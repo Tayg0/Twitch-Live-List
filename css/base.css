@@ -1,6 +1,4 @@
- 
-
-:root{
+ :root{
     --background-color: #d8d8d8;
     --card-background-color: #ffffff;
     --card-highlight-color: #f4f0ff;
@@ -10,43 +8,37 @@
     --game-info-subtext-color: #5e5e5e;
 }
 
+/* Viewer Count Icon */
+
+.circle {
+    height: 5px;
+    width: 5px;
+    background: linear-gradient(180deg, #CF1212 0%, #F50909 100%);
+    border-radius: 50%;
+    display: inline-block ;
+    margin: 1px 2px;
+  }
 
 
+/* Scroll Bar Styling */
 
-
-
-
-
-
-
-
-
-/* width */
-::-webkit-scrollbar {
+::-webkit-scrollbar { /* Width */
     width: 6px;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
+::-webkit-scrollbar-track { /* Track */
     background: var(--background-color);
 }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb { /* Handle */
     border-radius: 4px;
-    /* transition: background 0.5s ease; */
     background: var(--card-background-color);
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover { /* Handle on hover */
     background:  var(--card-highlight-color);
 }
 
-/* html {
-    overflow: -moz-scrollbars-vertical; 
-    overflow-y: scroll;
-} */
 
 body{
     font-family:'Roboto', sans-serif;
@@ -54,7 +46,7 @@ body{
     background-color: var(--background-color); 
 }
 .container-fluid{
-    width: 408px;
+    width: 388px;
     margin: 2px;
     padding: 0px;
 }
@@ -68,7 +60,7 @@ body{
     border-width: 0px;
     margin: 0px;
     padding: 0px;
-    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.349);
+    box-shadow: 0px 1px 2px #00000046, 0px 4px 8px #00000023;
     
 }
 .card-body{
@@ -100,11 +92,9 @@ body{
     cursor:pointer;
 }
 .row .card{
-    /* transition: filter 0.5s ease, height 0.5s ease, width 0.5s ease, background-color 0.3s ease; */
     filter: brightness(100%) saturate(110%);
 } 
 .row:hover .stream-info{
-    
     background-color: var(--card-highlight-color);
 } 
 .row:hover .stream-thumb{
@@ -113,7 +103,7 @@ body{
 } 
 
 .col-game-head{
-    width: 404px;
+    width: 384px;
 
 }
 .game-head{
@@ -126,26 +116,26 @@ body{
 
 
 .col-stream-info, .card-body-stream-info{
-    transition: height 0.5s ease, width 0.5s ease, max-width 0.5s ease;
-    width:320px;
+    transition: height 0.4s ease, width 0.4s ease, max-width 0.4s ease;
+    width:300px;
     height: 45px;
 }
 .col-stream-thumb{ 
-    transition: height 0.5s ease, width 0.5s ease;
+    transition: height 0.4s ease, width 0.4s ease;
     width:80px;
     height: 45px;
 } 
 .stream-thumb{ 
-    transition: height 0.5s ease, width 0.5s ease;
+    transition: height 0.4s ease, width 0.4s ease;
     width:100%;
     height: 100%;
 } 
 .stream-info{
-    transition: height 0.5s ease, width 0.5s ease;
+    transition: height 0.4s ease, width 0.4s ease;
 
 }
 .card-img{
-    transition: height 0.5s ease, width 0.5s ease;
+    transition: height 0.4s ease, width 0.4s ease;
     width:80px;
     height: 45px;
 }
@@ -157,16 +147,9 @@ body{
 .col-stream-thumb:hover + .col-stream-info .card-text{
     white-space: normal;
 }
-/* .stream-thumb:hover .card-img{
-    width: 160px;
-    height: 90px;
-} */
-/* .stream-thumb:hover{
-    width: 100%;
-    height: 100%;
-} */
+
 .col-stream-thumb:hover, .col-stream-thumb:hover .card-img{
-    width: 160px;
+    width: 140px;
     height: 90px;
 }
 
@@ -186,7 +169,12 @@ body{
 .btn-primary{
     background: linear-gradient(180deg, #6642a1 0%, #58497a 100%);
     border: 0px;
+    box-shadow: 0px 1px 2px #00000025, 0px 4px 8px #00000025;
 }
 .btn-primary:focus, .btn-primary:hover{
     background: linear-gradient(180deg, #9c7ad3 0%,  #6642a1 100%);
+}
+
+#user-id{
+    color: var(--game-info-subtext-color);
 }

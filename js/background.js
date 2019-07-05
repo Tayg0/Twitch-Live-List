@@ -3,19 +3,21 @@ var client_id = "va97w97mn1qzq0nlrjavlifr92lstz";
 
 var game_ids = localStorage.game_ids ? JSON.parse(localStorage.game_ids) : {};
 
-console.log(game_ids);
-
 chrome.alarms.create("myAlarm", { delayInMinutes: 1, periodInMinutes: 1 });
 
 chrome.alarms.onAlarm.addListener(function () {
 
-  console.log("Alarm Firing");
   getFollows(localStorage.user_id);
 
 });
 
+if(localStorage.configured != "true"){
+  chrome.browserAction.setBadgeText( {text:"CLICK"} );
+  chrome.browserAction.setBadgeBackgroundColor({ color: "#6642A1" })
+}
+
 function getFollows(id) {
-  if (localStorage.user_id) {
+  if (localStorage.user_id && localStorage.configured) {
 
 
     $.ajax({
