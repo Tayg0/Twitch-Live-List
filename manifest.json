@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Live On Twitch",
-    "description": "Lists live channels the user currently follows.",
+    "description": "See all of your favorite Twitch streams with the click of a button!",
     "version": "1.0.0",
     "icons": {
         "128": "media/icon_128.png",
@@ -19,7 +19,6 @@
         "default_popup": "popup.html"
     },
     "permissions": [
-        "activeTab",
         "alarms"
     ],
     "options_page": "options.html"

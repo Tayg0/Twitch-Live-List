@@ -5,7 +5,7 @@ var client_id = "va97w97mn1qzq0nlrjavlifr92lstz"; //Twitch-API Client ID
 var game_ids = localStorage.game_ids ? JSON.parse(localStorage.game_ids) : {};
 
 
-chrome.alarms.create("myAlarm", { delayInMinutes: 1, periodInMinutes: 1 });
+chrome.alarms.create("myAlarm", { delayInMinutes: 5, periodInMinutes: 5 });
 chrome.alarms.onAlarm.addListener(function () {
 
     getFollows(localStorage.user_id);
