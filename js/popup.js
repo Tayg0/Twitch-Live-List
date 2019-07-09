@@ -28,19 +28,23 @@ var templateThumbCard =
 
 var game_ids;
 
-$(document).ready(function () {
 
+$("#theme").ready(function(){ //Theme change.
     if (localStorage.dark == "true") {
 
         document.getElementById("theme").href = "css/dark.css";
-
+    
     }
+    
+})
+$(document).ready(function () {
 
-    setTimeout(function () {
+    
+    setTimeout(function () { //Delay before applying transition properties, helps to avoid color flashes from the theme change.
 
-         $(".row .card").css("transition", "filter 0.3s ease, height 0.4s ease, width 0.4s ease, background-color 0.3s ease");
+           document.getElementById("anim").href = "css/anim.css";
 
-    }, 200);
+    }, 100);
     
     if(localStorage.configured == "true"){
         game_ids = JSON.parse(localStorage.game_ids);
@@ -59,11 +63,9 @@ $(document).ready(function () {
 
 function printStreams(data) {
 
-    console.log(data);
     $.each(data, function (index, value) {
 
         if (!$("#" + value.game_id).length) {
-            console.log("WOULD HAVE CREATED HEADER FOR " + game_ids[value.game_id]);
             $("#stream-list").append(templateGameHeaderCard.replace("{GAME-ID}", value.game_id).replace("{GAME}", game_ids[value.game_id]));
         }
     });
@@ -77,16 +79,3 @@ function printStreams(data) {
     });
 
 }
-
-
-
-
-
-
-
-// function onStorageEvent(storageEvent){
-
-//     alert("storage event");
-// }
-
-// window.addEventListener('storage', onStorageEvent, false);

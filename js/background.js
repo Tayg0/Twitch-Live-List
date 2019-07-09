@@ -97,8 +97,8 @@ function translateGames(streams) {
 
                 });
 
-                console.log(data.data);
-                console.log(game_ids);
+                // console.log(data.data);
+                // console.log(game_ids);
                 localStorage.game_ids = JSON.stringify(game_ids);
 
             }

@@ -1,0 +1,34 @@
+
+/*-------------------------------------------------------------------------Animation Properties-------------------------------------------------------------------------*/
+.row .card{
+    transition: filter var(--transition-time) ease, background-color var(--transition-time) ease;
+}
+.col-stream-info, .card-body-stream-info{
+    transition: height var(--transition-time) ease, width var(--transition-time) ease, max-width var(--transition-time) ease;
+    width:300px;
+    height: 45px;
+    will-change: width, height;
+}
+.col-stream-thumb{ 
+    transition: height var(--transition-time) ease, width var(--transition-time) ease;
+    width:80px;
+    height: 45px;
+    will-change: width, height;
+} 
+.card-img{
+    transition: height var(--transition-time) ease, width var(--transition-time) ease;
+    width:80px;
+    height: 45px;
+    will-change: width, height;
+}
+.col-stream-thumb:hover + .col-stream-info, .col-stream-thumb:hover + .col-stream-info .card-body-stream-info{
+    width: 220px;
+    height: 90px;
+}
+.col-stream-thumb:hover + .col-stream-info .card-text{
+    white-space: normal;
+}
+.col-stream-thumb:hover, .col-stream-thumb:hover .card-img{
+    width: 160px;
+    height: 90px;
+}
