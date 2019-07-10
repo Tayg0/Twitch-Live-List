@@ -107,6 +107,10 @@ body{
     
     filter: brightness(140%) saturate(120%);
 } 
+/* .row:hover .card-img{
+    
+    filter: saturate(100%);
+}  */
 .col-game-head{
     width: 384px;
 
