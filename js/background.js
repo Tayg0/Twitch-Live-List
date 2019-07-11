@@ -63,7 +63,7 @@ function getStreams(addon) {
 
             localStorage.streams = JSON.stringify(data.data);
             chrome.browserAction.setBadgeText({ text: data.data.length + "" });
-            chrome.browserAction.setBadgeBackgroundColor({ color: "#7248b4" });
+            chrome.browserAction.setBadgeBackgroundColor(localStorage.theme.includes("mono") ? { color: '#636363'} : { color: '#7248b4'});
             translateGames(data.data);
 
         }

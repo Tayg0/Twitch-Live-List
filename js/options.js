@@ -8,6 +8,7 @@ $(document).ready(function () {
 
         localStorage.theme = 'light';
         localStorage.anim = 'true';
+
     }
 
     $('#select-theme option[value="' + localStorage.theme + '"]').prop('selected', true);
@@ -16,10 +17,8 @@ $(document).ready(function () {
     $("#checkbox-popup").prop("checked", localStorage.popup == "true");
     $("#checkbox-anim").prop("checked", localStorage.anim == "true");
     document.getElementById("theme").href = 'css/themes/' + localStorage.theme + '.css';
-
     $("#button-save").click(function () { save() });
-
-
+    
 
 });
 
@@ -57,5 +56,7 @@ function loginToID(login) {
 } ;
 
 $( document ).ajaxError(function() {
+
     $("#input-username").css({ "border-width": "2px", "border-color": "red" });
+
   });
