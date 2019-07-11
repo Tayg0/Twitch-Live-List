@@ -1,5 +1,11 @@
 
 /*-------------------------------------------------------------------------Animation Properties-------------------------------------------------------------------------*/
+.started-text{
+    transition: opacity var(--transition-time) ease;
+}
+.col-stream-thumb:hover + .col-stream-info .started-text{
+    opacity: 1;
+}
 .row .card{
     transition: filter var(--transition-time) ease, background-color var(--transition-time) ease;
 }

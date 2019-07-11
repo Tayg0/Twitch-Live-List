@@ -61,6 +61,14 @@ function getStreams(addon) {
 
         success: function (data) {
 
+            $.each(data.data, function(key, value){ //Prep stream info to reduce load on popup.js.
+
+                value.up_time = uptime(value.started_at);
+                value.thumbnail_url = value.thumbnail_url.replace("{width}x{height}", "240x90");
+                value.stream_url = "https://www.twitch.tv/" + encodeURI(value.user_name);
+
+            });
+
             localStorage.streams = JSON.stringify(data.data);
             chrome.browserAction.setBadgeText({ text: data.data.length + "" });
             chrome.browserAction.setBadgeBackgroundColor(localStorage.theme.includes("mono") ? { color: '#636363'} : { color: '#7248b4'});
@@ -106,5 +114,18 @@ function translateGames(streams) {
     }
 }
 
+function uptime(start_date) {
+
+    stream_date = new Date(start_date);
+    current_date = new Date();
+
+    Dif = (current_date - stream_date);
+
+    H = Math.floor(Dif / 3600000);
+    M = Math.floor((Dif % 3600000) / 60000);
+
+    return ((H > 0) ? (H + "h ") : ("")) + ((M > 0) ? (M + "m") : (""));
+
+};
 
 getFollows(localStorage.user_id);
