@@ -4,6 +4,33 @@ var client_id = "va97w97mn1qzq0nlrjavlifr92lstz"; //Twitch-API Client ID
 
 var game_ids = localStorage.game_ids ? JSON.parse(localStorage.game_ids) : {};
 
+var templateGameHeaderCard =
+    '<div class="row" id="{GAME-ID}">\
+        <div class="col-xs-12 col-game-head" >\
+            <div class="card game-head">\
+                <div class="card-body card-body-game-head">{GAME}</div>\
+            </div>\
+        </div>\
+    </div><!--{GAME-ID}-->';
+
+var templateCards =
+    '<div class="row row-stream" id="stream-{USERID}">\
+        <div class="col-xs-3 col-stream-thumb">\
+            <div class="card stream-thumb" style="">\
+                <img class="card-img" src="{THUMBURL}" alt="Stream Thumb">\
+            </div>\
+        </div>\
+        <div class="col-xs-3 col-stream-info">\
+            <div class="card stream-info">\
+                <div class="card-body card-body-stream-info">\
+                    <h6 class="card-title">{USERNAME}</h6>\
+                    <p class="card-text">{TITLE}</p>\
+                    <div class="viewers-text info-sub-text"><div class="circle"></div>{VIEWERS}</div>\
+                    <div class="started-text info-sub-text">{TIME}</div>\
+                </div>\
+            </div>\
+        </div>\
+    </div>';
 
 chrome.alarms.create("myAlarm", { delayInMinutes: 5, periodInMinutes: 5 });
 chrome.alarms.onAlarm.addListener(function () {
@@ -21,7 +48,7 @@ if (localStorage.configured != "true") {
 }
 
 
-function getFollows(id) {
+function getFollows(id) { //Get list of followed channels from Twitch API, send list to getStreams.
 
     if (localStorage.configured) {
 
@@ -38,7 +65,7 @@ function getFollows(id) {
 
                 $.each(data.data, function (index, value) {
 
-                    add += "&user_login=" + value.to_name;
+                    add += "&user_login=" + value.to_name; //Generate URL query parameters, in this case a list of users.
 
                 });
 
@@ -50,7 +77,7 @@ function getFollows(id) {
 }
 
 
-function getStreams(addon) {
+function getStreams(addon) { //Get stream information for followed channels from Twitch API, Update Local Storage, Set Badge.
 
     $.ajax({
 
@@ -61,7 +88,7 @@ function getStreams(addon) {
 
         success: function (data) {
 
-            $.each(data.data, function(key, value){ //Prep stream info to reduce load on popup.js.
+            $.each(data.data, function(key, value){ //Resolve some important information in stream attributes.
 
                 value.up_time = uptime(value.started_at);
                 value.thumbnail_url = value.thumbnail_url.replace("{width}x{height}", "240x90");
@@ -79,15 +106,20 @@ function getStreams(addon) {
 }
 
 
-function translateGames(streams) {
+function translateGames(streams) { //Get game titles from Twitch API if not already present in LocalStorage.
 
     var add = "";
-    $.each(streams, function (index, value) {
+
+    $.each(streams, function (index, value) { //Generate URL query parameters, in this case a list of games.
+
         if (!(value.game_id in game_ids)) {
+
             add += "&id=" + value.game_id;
 
         }
+
     });
+
 
     if (add.length > 0) {
 
@@ -105,13 +137,14 @@ function translateGames(streams) {
 
                 });
 
-                // console.log(data.data);
-                // console.log(game_ids);
                 localStorage.game_ids = JSON.stringify(game_ids);
+                generateHTML(streams)
 
             }
+
         });
-    }
+
+    } else { generateHTML(streams) }
 }
 
 function uptime(start_date) {
@@ -127,5 +160,35 @@ function uptime(start_date) {
     return ((H > 0) ? (H + "h ") : ("")) + ((M > 0) ? (M + "m") : (""));
 
 };
+
+function generateHTML(data) { //Generates and stores HTML used to display stream list in popup.js.
+
+    var game_ids = JSON.parse(localStorage.game_ids);
+    var html = "";
+
+    $.each(data, function (index, value) {
+
+        if (!html.includes(value.game_id)) {
+
+            html += templateGameHeaderCard.replace(/{GAME-ID}/g, value.game_id).replace("{GAME}", game_ids[value.game_id]);
+
+        }
+
+        Cards = templateCards.replace("{USERID}", value.user_id).replace("{THUMBURL}", value.thumbnail_url).replace("{USERNAME}", value.user_name).replace("{TITLE}", value.title).replace("{VIEWERS}", value.viewer_count).replace("{TIME}", value.up_time);
+        html = insertBefore(html, '<!--' + value.game_id + '-->', Cards);
+
+    });
+
+    localStorage.htmlCapsule = html;
+
+};
+
+function insertBefore(original, search, insert){ //Utility function for inserting a string before another given string.
+
+    index = original.indexOf(search);
+    var final = original.substring(0, index) + insert + original.substring(index);
+    return index == -1 ? original : final;
+
+}
 
 getFollows(localStorage.user_id);
