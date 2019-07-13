@@ -41,6 +41,18 @@ function addLinks(data){
         
         }
 
-    });
+        // var img = document.createElement('img');
+        // img.crossOrigin = "Anonymous";
+        // img.setAttribute('src', value.thumbnail_url);
+        // img.addEventListener('load', function() {
+        //     var vibrant = new Vibrant(img);
+        //     var swatches = vibrant.swatches();
+        //     Color = swatches.Vibrant;
+        //     $("#stream-" + value.user_id + " .card-title").css({"color" : Color.getHex()});
+            // $("#stream-" + value.user_id + " .card-text").css({"color" : Color.getBodyTextColor()});
+        });
+        // 
+        // $("#stream-"+value.user_id+" .card-title").html(swatches.darkmuted);
 
 }
+

@@ -32,7 +32,7 @@ var templateCards =
         </div>\
     </div>';
 
-chrome.alarms.create("myAlarm", { delayInMinutes: 5, periodInMinutes: 5 });
+chrome.alarms.create("myAlarm", { delayInMinutes: 2.5, periodInMinutes: 2.5 });
 chrome.alarms.onAlarm.addListener(function () {
 
     getFollows(localStorage.user_id);
