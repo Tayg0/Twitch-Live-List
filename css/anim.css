@@ -1,40 +1,26 @@
 
 /*-------------------------------------------------------------------------Animation Properties-------------------------------------------------------------------------*/
-.started-text{
-    transition: opacity var(--transition-time) ease;
+.card-body-stream-info{
+  transition: background-color 0.4s ease;
 }
-.col-stream-thumb:hover + .col-stream-info .started-text{
-    opacity: 1;
+.card-img:hover{
+  width: 160px;
 }
-.row .card{
-    transition: filter var(--transition-time) ease, background-color var(--transition-time) ease;
+.card-img:hover + .card-body-stream-info .card-text{
+  white-space: unset;
+  overflow: visible;
 }
-.col-stream-info, .card-body-stream-info{
-    transition: height var(--transition-time) ease, width var(--transition-time) ease, max-width var(--transition-time) ease;
-    width:300px;
-    height: 45px;
-    will-change: width, height;
+.card-img:hover + .card-body-stream-info .started-text{
+  opacity: 1;
 }
-.col-stream-thumb{ 
-    transition: height var(--transition-time) ease, width var(--transition-time) ease;
-    width:80px;
-    height: 45px;
-    will-change: width, height;
-} 
 .card-img{
-    transition: height var(--transition-time) ease, width var(--transition-time) ease;
-    width:80px;
-    height: 45px;
-    will-change: width, height;
+
+  transition: width 0.4s ease, filter 0.4s ease;
+
 }
-.col-stream-thumb:hover + .col-stream-info, .col-stream-thumb:hover + .col-stream-info .card-body-stream-info{
-    width: 220px;
-    height: 90px;
+
+.started-text{
+
+  transition: opacity 0.4s ease;
 }
-.col-stream-thumb:hover + .col-stream-info .card-text{
-    white-space: normal;
-}
-.col-stream-thumb:hover, .col-stream-thumb:hover .card-img{
-    width: 160px;
-    height: 90px;
-}
+

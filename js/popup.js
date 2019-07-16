@@ -7,7 +7,9 @@ $("#theme").ready(function(){ //Theme change.
 });
 
 $(document).ready(function () {
-    
+
+    // $('body').contextmenu(function(){return false;});
+
     setTimeout(function () { //Delay before applying transition properties, helps to avoid color flashes from the theme change.
 
            if(localStorage.anim == 'true'){document.getElementById("anim").href = "css/anim.css";}

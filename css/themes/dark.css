@@ -1,10 +1,12 @@
 /*-------------------------------------------------------------------------Theme Color Variables-------------------------------------------------------------------------*/
 :root{
     --background-color: #2b2b2b;
+    --card-edge-color: #4f4f4f;
     --card-background-color: #3a3a3a;
     --card-highlight-color: #686868;
     --game-header-background-color: linear-gradient(180deg, hsl(263, 42%, 45%) 0%, hsl(263, 35%, 35%) 100%);
     --game-header-text-color:#ece3ff;
+    --game-header-edge-color:#936bef;
     --game-info-text-color:#ffffff;
     --game-info-subtext-color: #b4b4b4;
     --badge-color: #7248b4;

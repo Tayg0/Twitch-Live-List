@@ -5,30 +5,18 @@ var client_id = "va97w97mn1qzq0nlrjavlifr92lstz"; //Twitch-API Client ID
 var game_ids = localStorage.game_ids ? JSON.parse(localStorage.game_ids) : {};
 
 var templateGameHeaderCard =
-    '<div class="row" id="{GAME-ID}">\
-        <div class="col-xs-12 col-game-head" >\
-            <div class="card game-head">\
-                <div class="card-body card-body-game-head">{GAME}</div>\
-            </div>\
-        </div>\
+    '<div class="row row-game" id="{GAME-ID}">\
+                <div class="card-body-game-head">{GAME}</div>\
     </div><!--{GAME-ID}-->';
 
 var templateCards =
     '<div class="row row-stream" id="stream-{USERID}">\
-        <div class="col-xs-3 col-stream-thumb">\
-            <div class="card stream-thumb" style="">\
-                <img class="card-img" src="{THUMBURL}" alt="Stream Thumb">\
-            </div>\
-        </div>\
-        <div class="col-xs-3 col-stream-info">\
-            <div class="card stream-info">\
-                <div class="card-body card-body-stream-info">\
-                    <h6 class="card-title">{USERNAME}</h6>\
-                    <p class="card-text">{TITLE}</p>\
-                    <div class="viewers-text info-sub-text"><div class="circle"></div>{VIEWERS}</div>\
-                    <div class="started-text info-sub-text">{TIME}</div>\
-                </div>\
-            </div>\
+        <img class="card-img" src="{THUMBURL}" alt="Stream Thumb">\
+        <div class="card-body-stream-info">\
+            <span class="card-title">{USERNAME}</span></br>\
+            <span class="card-text">{TITLE}</span>\
+            <div class="viewers-text info-sub-text"><div class="circle"></div>{VIEWERS}</div>\
+            <div class="started-text info-sub-text">{TIME}</div>\
         </div>\
     </div>';
 
@@ -91,7 +79,7 @@ function getStreams(addon) { //Get stream information for followed channels from
             $.each(data.data, function(key, value){ //Resolve some important information in stream attributes.
 
                 value.up_time = uptime(value.started_at);
-                value.thumbnail_url = value.thumbnail_url.replace("{width}x{height}", "240x90");
+                value.thumbnail_url = value.thumbnail_url.replace("{width}x{height}", "160x90");
                 value.stream_url = "https://www.twitch.tv/" + encodeURI(value.user_name);
 
             });

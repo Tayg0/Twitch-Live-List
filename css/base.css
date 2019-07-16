@@ -1,11 +1,13 @@
 /*-------------------------------------------------------------------------Theme Color Variables-------------------------------------------------------------------------*/
  
- :root{
-    --background-color: #e0e0e0;
+:root{
+    --background-color: #dddddd;
+    --card-edge-color: #ffffff;
     --card-background-color: #f2f2f2;
     --card-highlight-color: #ffffff;
-    --game-header-background-color: linear-gradient(180deg, hsl(263, 42%, 55%) 0%, hsl(258, 25%, 43%) 100%);
-    --game-header-text-color:#e9e1fa;
+    --game-header-background-color: linear-gradient(180deg, #815cbc 0%, #6a4b9c 100%);
+    --game-header-text-color:#ece3ff;
+    --game-header-edge-color:#a781ff;
     --game-info-text-color:#000000;
     --game-info-subtext-color: #5e5e5e;
     --badge-color: #7248b4;
@@ -16,180 +18,138 @@
 /*-------------------------------------------------------------------------Viewer Count Icon-------------------------------------------------------------------------*/
 
 .circle {
-    height: 5px;
-    width: 5px;
+
+    height: 3px;
+    width: 3px;
     background: linear-gradient(180deg, #CF1212 0%, #F50909 100%);
     border-radius: 50%;
+    border:1px solid #ff2121;
     display: inline-block ;
     margin: 1px 2px;
+
   }
 
 
 /*-------------------------------------------------------------------------Scroll Bar Styling-------------------------------------------------------------------------*/
 
 ::-webkit-scrollbar { /* Width */
-    width: 6px;
+    width: 0px;
 }
-
-::-webkit-scrollbar-track { /* Track */
-    background: var(--background-color);
-}
-
-::-webkit-scrollbar-thumb { /* Handle */
-    border-radius: 4px;
-    background: var(--card-background-color);
-}
-
-::-webkit-scrollbar-thumb:hover { /* Handle Hover */
-    background:  var(--card-highlight-color);
-}
-
 
 /*-------------------------------------------------------------------------Global Styling-------------------------------------------------------------------------*/
-.started-text{
-    position: absolute;
-    bottom: 2px;
-    right: 2px;
+
+
+.row-stream{
+
+  cursor: pointer;
+
 }
 
+
 body{
+  
+    user-select: none;
     font-family:'Roboto', sans-serif;
     color: var(--game-info-text-color);
     background-color: var(--background-color); 
-}
-.container-fluid{
-    width: 388px;
-    margin: 2px;
+    margin: 0px;
     padding: 0px;
+    width: 404px;
+    font-size: 13px;
 
 }
-.col-xs-3, .col-xs-12{
-    margin: 2px;
-    padding: 0px;
-}
-.card{
-    background-color: var(--card-background-color);
-    border-color: var(--card-background-color);
-    border-width: 0px;
-    margin: 0px;
-    padding: 0px;
-    box-shadow: 0px 1px 2px #0000002d, 0px 4px 8px #00000015; 
-    
-}
-.card-body{
-    padding: 5px;
-}
 
-.card-title{
-    padding: 0px;
-    margin: 0px;
-    color: var(--game-info-text-color);
-}
-.card-text{
-    padding: 0px;
-    margin: 0px;
-    font-size: 10px;
-    color: var(--game-info-subtext-color);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 .row{
-    padding:0px;
-    margin:0px;
+  
+  width: 400px;
+  display: flex;
+  margin: 2px;
+  
 }
-.row-stream:hover{
-    text-decoration: none;
-    cursor:pointer;
-}
-.row .card{
-    filter: brightness(100%) saturate(110%);
-} 
-.row:hover .stream-info{
-    background-color: var(--card-highlight-color);
-    position: relative;
-} 
-.row:hover .stream-thumb{
-    
-    filter: brightness(140%) saturate(120%);
-} 
-/* .row:hover .card-img{
-    
-    filter: saturate(100%);
-}  */
-.col-game-head{
-    width: 384px;
+.row:hover .card-body-stream-info{
+
+  background-color: var(--card-highlight-color);
 
 }
-.game-head{
-    font-size: 11px;
-    background: var(--game-header-background-color);
-    color: var(--game-header-text-color);
-    height: 22px;
+.row:hover .card-img{
+
+  filter: brightness(130%) saturate(115%);
+  
+}
+.row-game{
+  background: var(--game-header-background-color);
+  border-radius: 2px;
+  border-top: 1px solid var(--game-header-edge-color);
 
 }
 .card-body-game-head{
-    text-align: center;
-    margin: 4px;
-    padding: 0px;
+
+  font-size: 0.8em;
+  margin: 3px auto;
+  color: var(--game-header-text-color);
+
 }
-#user-id{
-    color: var(--game-info-subtext-color);
+.card-img{
+  filter: brightness(100%) saturate(100%);
+  display: inline-block;
+  width: 80px;
+  min-height: 45px;
+  margin-right: 2px;
+  border-radius: 2px;
+
+
 }
 
-.info-sub-text{
-    position: absolute;
-    font-size: 10px;
-    color: var(--game-info-subtext-color);
+.card-body-stream-info{
+
+  border-top: 1px solid var(--card-edge-color);
+  background-color: var(--card-background-color);
+  border-radius: 2px;
+  padding-top: 6px;
+  padding-left: 6px;
+  padding-right: 6px;
+
+  vertical-align: top;
+  width: 100%;
+  position: relative;
+  display: inline-block;
+
+
+}
+.card-title{
+  padding-top: 2px;
+
+}
+.card-text{
+  position: absolute;
+  font-size: 0.8em;
+  color: var(--game-info-subtext-color);
+  left: 6px;
+  right: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 2px;
+
 }
 
 .viewers-text{
-    top: 2px;
-    right: 4px;
+
+  font-size: 0.8em;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  color: var(--game-info-subtext-color);
+
 }
 .started-text{
-    opacity: 0;
-    bottom: 2px;
-    right: 4px;
-}
-#stream-list *{
-    pointer-events: none;
-    -webkit-user-select: none;
-}
-#stream-list .row,#stream-list .col-stream-thumb{
-    pointer-events: all;
-}
 
-
-/*-------------------------------------------------------------------------Options Button Animations-------------------------------------------------------------------------*/
-
-.btn-primary{
-    background: var(--game-header-background-color);
-    border: 0px;
-    box-shadow: 0px 1px 2px #00000025, 0px 4px 8px #00000025;
-}
-.btn-primary:focus, .btn-primary:hover{
-    filter:brightness(140%);
-}
-
-
-/*-------------------------------------------------------------------------Popup Hover Default Sizes-------------------------------------------------------------------------*/
-
-.card-img{
-    width:80px;
-    height: 45px;
+  font-size: 0.8em;
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  color: var(--game-info-subtext-color);
+  opacity: 0;
 
 }
-.col-stream-info, .card-body-stream-info{
-    width:300px;
-    height: 45px;
-}
-.col-stream-thumb{ 
-    width:80px;
-    height: 45px;
-} 
 
-.card-img{
-    width:80px;
-    height: 45px;
-}
