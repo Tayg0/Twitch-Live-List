@@ -48,7 +48,7 @@ function loginToID(login) {
 
             } else {
 
-                $("#input-username").css({ "border-width": "2px", "border-color": "red" });
+                $("#input-username").css({ "background-color": "#ffc3c3"});
 
             }
         }
@@ -57,6 +57,6 @@ function loginToID(login) {
 
 $( document ).ajaxError(function() {
 
-    $("#input-username").css({ "border-width": "2px", "border-color": "red" });
+    $("#input-username").css({ "background-color": "#ffc3c3"});
 
   });
