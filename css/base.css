@@ -45,6 +45,9 @@
 
 }
 
+*{
+    font-family:'Roboto', sans-serif;
+}
 
 body{
   
@@ -71,12 +74,13 @@ body{
   background-color: var(--card-highlight-color);
 
 }
-.row:hover .card-img{
+.row:hover img{
 
-  filter: brightness(130%) saturate(115%);
+  filter: brightness(125%) saturate(115%);
   
 }
 .row-game{
+
   background: var(--game-header-background-color);
   border-radius: 2px;
   border-top: 1px solid var(--game-header-edge-color);
@@ -84,20 +88,28 @@ body{
 }
 .card-body-game-head{
 
-  font-size: 0.8em;
+  font-size: 0.80em;
   margin: 3px auto;
   color: var(--game-header-text-color);
 
 }
 .card-img{
+
   filter: brightness(100%) saturate(100%);
   display: inline-block;
-  width: 80px;
-  min-height: 45px;
+  margin: 0px;
   margin-right: 2px;
   border-radius: 2px;
+  background: var(--background-color);
+  min-height: 45px;
+  
+}
+img{
 
-
+  border-radius: 2px;
+  display: block;
+  width: 80px;
+  
 }
 
 .card-body-stream-info{
@@ -118,7 +130,7 @@ body{
 }
 .card-title{
   padding-top: 2px;
-
+  font-size: 1em;
 }
 .card-text{
   position: absolute;

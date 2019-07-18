@@ -3,7 +3,7 @@
 .card-body-stream-info{
   transition: background-color 0.4s ease;
 }
-.card-img:hover{
+img:hover{
   width: 160px;
 }
 .card-img:hover + .card-body-stream-info .card-text{
@@ -13,14 +13,14 @@
 .card-img:hover + .card-body-stream-info .started-text{
   opacity: 1;
 }
-.card-img{
+img{
 
-  transition: width 0.4s ease, filter 0.4s ease;
+  transition: width 0.6s ease, filter 0.4s ease;
 
 }
 
 .started-text{
 
-  transition: opacity 0.4s ease;
+  transition: opacity 0.6s ease;
 }
 
