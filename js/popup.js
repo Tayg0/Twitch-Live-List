@@ -27,6 +27,15 @@ $(document).ready(function () {
 
     }
 
+    scrollPercent = $(window).scrollTop() / ( $(document).height() - $(window).height() );
+    console.log(scrollPercent);
+
+    if(scrollPercent == 1){
+        $('.scroll-icon').css({'opacity' : 0});
+    }else{
+        $('.scroll-icon').css({'opacity' : 1});
+    }
+
 });
 
 function addLinks(data){
@@ -58,3 +67,18 @@ function addLinks(data){
 
 }
 
+
+$(window).scroll(function(){
+
+
+    scrollPercent = $(window).scrollTop() / ( $(document).height() - $(window).height() );
+    console.log(scrollPercent);
+
+    if(scrollPercent == 1){
+        $('.scroll-icon').css({'opacity' : 0});
+    }else{
+        $('.scroll-icon').css({'opacity' : 1});
+    }
+
+
+});
