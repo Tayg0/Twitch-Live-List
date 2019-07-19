@@ -1,7 +1,7 @@
 
 /*-------------------------------------------------------------------------Animation Properties-------------------------------------------------------------------------*/
 .card-body-stream-info{
-  transition: background-color 0.4s ease;
+  transition: background-color 0.25s ease;
 }
 img:hover{
   width: 160px;
@@ -15,7 +15,7 @@ img:hover{
 }
 img{
 
-  transition: width 0.6s ease, filter 0.4s ease;
+  transition: width 0.6s ease, filter 0.25s ease;
 
 }
 

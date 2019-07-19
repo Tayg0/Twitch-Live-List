@@ -168,7 +168,7 @@ function generateHTML(data) { //Generates and stores HTML used to display stream
     });
 
     localStorage.htmlCapsule = html;
-
+    chrome.runtime.sendMessage({message: "refreshed"});
 };
 
 function insertBefore(original, search, insert){ //Utility function for inserting a string before another given string.
@@ -180,3 +180,13 @@ function insertBefore(original, search, insert){ //Utility function for insertin
 }
 
 getFollows(localStorage.user_id);
+
+
+chrome.runtime.onMessage.addListener(
+    function (request, sender, sendResponse) {
+
+        if (request.message == "refresh")
+        getFollows(localStorage.user_id);
+
+    }
+);

@@ -247,12 +247,14 @@ padding-right: 7px;
 
 .scroll-icon{
 position: fixed;
-width: 100%;
+width: 70%;
 height: 60px;
 bottom: 0px;
-
+left: 50%;
+transform: translate(-50%, 0%);
 background: #e7e7e7;
 background: linear-gradient(180deg, transparent 10%, var(--card-background-color) 80%);
+background: radial-gradient(ellipse at 50% 90%, var(--card-background-color) 15%, transparent 70%);
 transition: opacity 0.4s ease;
 
 pointer-events: none;

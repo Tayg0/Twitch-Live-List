@@ -36,7 +36,35 @@ $(document).ready(function () {
         $('.scroll-icon').css({'opacity' : 1});
     }
 
+
+    $(".spinner").click(function () { requestRefresh(); });
+        
+
+
+    updateScroll();
+
+
 });
+
+function requestRefresh(){
+
+    console.log("Message sent.");
+
+    chrome.runtime.sendMessage({message: "refresh"});
+
+    chrome.runtime.onMessage.addListener(
+        function (request, sender, sendResponse) {
+    
+            if (request.message == "refreshed"){
+            console.log("Message recieved.");
+            location.reload();
+            }
+        }
+    );
+    
+};
+
+
 
 function addLinks(data){
 
@@ -68,11 +96,18 @@ function addLinks(data){
 }
 
 
-$(window).scroll(function(){
+// $(window).scroll(function(){
+
+
+//     updateScroll();
+
+
+// });
+
+function updateScroll(){
 
 
     scrollPercent = $(window).scrollTop() / ( $(document).height() - $(window).height() );
-    console.log(scrollPercent);
 
     if(scrollPercent == 1){
         $('.scroll-icon').css({'opacity' : 0});
@@ -80,5 +115,5 @@ $(window).scroll(function(){
         $('.scroll-icon').css({'opacity' : 1});
     }
 
-
-});
+    setTimeout(function () { updateScroll(); }, 250);
+};
