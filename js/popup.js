@@ -8,7 +8,7 @@ $("#theme").ready(function(){ //Theme change.
 
 $(document).ready(function () {
 
-    // $('body').contextmenu(function(){return false;});
+    $('body').contextmenu(function(){return false;});
 
     setTimeout(function () { //Delay before applying transition properties, helps to avoid color flashes from the theme change.
 
@@ -28,7 +28,6 @@ $(document).ready(function () {
     }
 
     scrollPercent = $(window).scrollTop() / ( $(document).height() - $(window).height() );
-    console.log(scrollPercent);
 
     if(scrollPercent == 1){
         $('.scroll-icon').css({'opacity' : 0});
@@ -46,18 +45,18 @@ $(document).ready(function () {
 
 });
 
-function requestRefresh(){
-
-    console.log("Message sent.");
+function requestRefresh(){ //Sends a message to background script requesting a refresh.
 
     chrome.runtime.sendMessage({message: "refresh"});
 
     chrome.runtime.onMessage.addListener(
+
         function (request, sender, sendResponse) {
     
             if (request.message == "refreshed"){
-            console.log("Message recieved.");
-            location.reload();
+
+            location.reload(); //Refresh once content is generated in background script.
+
             }
         }
     );
@@ -80,40 +79,24 @@ function addLinks(data){
         
         }
 
-        // var img = document.createElement('img');
-        // img.crossOrigin = "Anonymous";
-        // img.setAttribute('src', value.thumbnail_url);
-        // img.addEventListener('load', function() {
-        //     var vibrant = new Vibrant(img);
-        //     var swatches = vibrant.swatches();
-        //     Color = swatches.Vibrant;
-        //     $("#stream-" + value.user_id + " .card-title").css({"color" : Color.getHex()});
-            // $("#stream-" + value.user_id + " .card-text").css({"color" : Color.getBodyTextColor()});
         });
-        // 
-        // $("#stream-"+value.user_id+" .card-title").html(swatches.darkmuted);
+
 
 }
 
-
-// $(window).scroll(function(){
-
-
-//     updateScroll();
-
-
-// });
-
 function updateScroll(){
 
+    if( ($(document).height() - $(window).height()) > 0 ){
+        scrollPercent = $(window).scrollTop() / ( $(document).height() - $(window).height() );
 
-    scrollPercent = $(window).scrollTop() / ( $(document).height() - $(window).height() );
-
-    if(scrollPercent == 1){
-        $('.scroll-icon').css({'opacity' : 0});
+        if(scrollPercent == 1){
+            $('.scroll-icon').css({'opacity' : 0});
+        }else{
+            $('.scroll-icon').css({'opacity' : 1});
+        }
     }else{
-        $('.scroll-icon').css({'opacity' : 1});
+        $('.scroll-icon').css({'display' : 'none', 'opacity' : 0});
     }
 
-    setTimeout(function () { updateScroll(); }, 250);
+    setTimeout(function () { updateScroll(); }, 300);
 };

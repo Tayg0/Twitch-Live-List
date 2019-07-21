@@ -150,23 +150,28 @@ function uptime(start_date) {
 };
 
 function generateHTML(data) { //Generates and stores HTML used to display stream list in popup.js.
-
-    var game_ids = JSON.parse(localStorage.game_ids);
+    
     var html = "";
 
-    $.each(data, function (index, value) {
+    if(data.length > 0){
 
-        if (!html.includes(value.game_id)) {
+        var game_ids = JSON.parse(localStorage.game_ids);
 
-            html += templateGameHeaderCard.replace(/{GAME-ID}/g, value.game_id).replace("{GAME}", game_ids[value.game_id]);
+        $.each(data, function (index, value) {
 
-        }
+            if (!html.includes(value.game_id)) {
 
-        Cards = templateCards.replace("{USERID}", value.user_id).replace("{THUMBURL}", value.thumbnail_url).replace("{USERNAME}", value.user_name).replace("{TITLE}", value.title).replace("{VIEWERS}", value.viewer_count).replace("{TIME}", value.up_time);
-        html = insertBefore(html, '<!--' + value.game_id + '-->', Cards);
+                html += templateGameHeaderCard.replace(/{GAME-ID}/g, value.game_id).replace("{GAME}", game_ids[value.game_id]);
 
-    });
+            }
 
+            Cards = templateCards.replace("{USERID}", value.user_id).replace("{THUMBURL}", value.thumbnail_url).replace("{USERNAME}", value.user_name).replace("{TITLE}", value.title).replace("{VIEWERS}", value.viewer_count).replace("{TIME}", value.up_time);
+            html = insertBefore(html, '<!--' + value.game_id + '-->', Cards);
+
+        });
+    }else{
+        html = templateGameHeaderCard.replace(/{GAME-ID}/g, '').replace("{GAME}", 'No one is currently live!');
+    }
     localStorage.htmlCapsule = html;
     chrome.runtime.sendMessage({message: "refreshed"});
 };
