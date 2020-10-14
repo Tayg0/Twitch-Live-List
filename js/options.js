@@ -29,21 +29,24 @@ function loginToID(login) {
     var req = $.ajax({
 
         type: 'GET',
-        url: 'https://api.twitch.tv/helix/users?login=' + encodeURI(login),
+        url: 'https://api.twitch.tv/kraken/users?login=' + encodeURI(login),
         dataType: 'json',
-        headers: { 'Client-ID': client_id },
+        headers: { 
+            'Client-ID': client_id,
+            'Accept': 'application/vnd.twitchtv.v5+json'
+        },
 
         success: function (data) {
-
-            if (data.data.length > 0) {
+            console.log(data.users);
+            if (data.users.length > 0) {
 
                 localStorage.popup = $("#checkbox-popup").prop("checked");
                 localStorage.anim = $("#checkbox-anim").prop("checked");
                 localStorage.configured = "true";
                 localStorage.theme = $("#select-theme").val();
-                localStorage.username = data.data[0].display_name;
-                localStorage.user_id = data.data[0].id;
-                chrome.runtime.getBackgroundPage(function(bg){bg.getFollows(data.data[0].id)});
+                localStorage.username = data.users[0].display_name;
+                localStorage.user_id = data.users[0]._id;
+                chrome.runtime.getBackgroundPage(function(bg){bg.getFollows(data.users[0]._id)});
                 location.reload();
 
             } else {

@@ -43,17 +43,18 @@ function getFollows(id) { //Get list of followed channels from Twitch API, send 
         $.ajax({
 
             type: 'GET',
-            url: 'https://api.twitch.tv/helix/users/follows?first=100&from_id=' + id,
+            url: 'https://api.twitch.tv/kraken/users/' + id + '/follows/channels?limit=100&sortby=last_broadcast',
             dataType: 'json',
-            headers: { 'Client-ID': client_id },
-
+            headers: { 
+                'Client-ID': client_id,
+                'Accept': 'application/vnd.twitchtv.v5+json'
+            },
             success: function (data) {
 
-                var add = "";
+                let add = [];
+                $.each(data.follows, function (index, value) {
 
-                $.each(data.data, function (index, value) {
-
-                    add += "&user_login=" + value.to_name; //Generate URL query parameters, in this case a list of users.
+                    add.push(value.channel._id); //Generate URL query parameters, in this case a list of users.
 
                 });
 
@@ -70,31 +71,34 @@ function getStreams(addon) { //Get stream information for followed channels from
     $.ajax({
 
         type: 'GET',
-        url: 'https://api.twitch.tv/helix/streams?first=100' + addon,
+        url: 'https://api.twitch.tv/kraken/streams?channel=' + encodeURI(addon.toString()),
         dataType: 'json',
-        headers: { 'Client-ID': client_id },
+        headers: { 
+            'Client-ID': client_id,
+            'Accept': 'application/vnd.twitchtv.v5+json'
+        },
 
         success: function (data) {
 
-            $.each(data.data, function(key, value){ //Resolve some important information in stream attributes.
+            $.each(data.streams, function(key, value){ //Resolve some important information in stream attributes.
 
-                value.up_time = uptime(value.started_at);
-                value.thumbnail_url = value.thumbnail_url.replace("{width}x{height}", "160x90");
-                value.stream_url = "https://www.twitch.tv/" + encodeURI(value.user_name);
+                value.up_time = uptime(value.created_at);
+                value.thumbnail_url = value.preview.template.replace("{width}x{height}", "160x90");
+                value.stream_url = "https://www.twitch.tv/" + encodeURI(value.channel.name);
 
             });
 
-            localStorage.streams = JSON.stringify(data.data);
-            chrome.browserAction.setBadgeText({ text: data.data.length + "" });
+            localStorage.streams = JSON.stringify(data.streams);
+            chrome.browserAction.setBadgeText({ text: data.streams.length + "" });
             chrome.browserAction.setBadgeBackgroundColor(localStorage.theme.includes("mono") ? { color: '#636363'} : { color: '#7248b4'});
-            translateGames(data.data);
-
+            //translateGames(data.data);
+            generateHTML(data.streams)
         }
     });
 }
 
 
-function translateGames(streams) { //Get game titles from Twitch API if not already present in LocalStorage.
+/* function translateGames(streams) { //Get game titles from Twitch API if not already present in LocalStorage.
 
     var add = "";
 
@@ -114,9 +118,12 @@ function translateGames(streams) { //Get game titles from Twitch API if not alre
         $.ajax({
 
             type: 'GET',
-            url: 'https://api.twitch.tv/helix/games?first=100' + add,
+            url: 'https://api.twitch.tv/kraken/games?first=100' + add,
             dataType: 'json',
-            headers: { 'Client-ID': client_id },
+            headers: { 
+                'Client-ID': client_id,
+                'Accept': 'application/vnd.twitchtv.v5+json'
+            },
 
             success: function (data) {
 
@@ -133,7 +140,7 @@ function translateGames(streams) { //Get game titles from Twitch API if not alre
         });
 
     } else { generateHTML(streams) }
-}
+} */
 
 function uptime(start_date) {
 
@@ -155,18 +162,18 @@ function generateHTML(data) { //Generates and stores HTML used to display stream
 
     if(data.length > 0){
 
-        var game_ids = JSON.parse(localStorage.game_ids);
+        //var game_ids = JSON.parse(localStorage.game_ids);
 
         $.each(data, function (index, value) {
 
-            if (!html.includes(value.game_id)) {
+            if (!html.includes(value.game)) {
 
-                html += templateGameHeaderCard.replace(/{GAME-ID}/g, value.game_id).replace("{GAME}", game_ids[value.game_id]);
+                html += templateGameHeaderCard.replace(/{GAME-ID}/g, value.game).replace("{GAME}", value.game);
 
             }
 
-            Cards = templateCards.replace("{USERID}", value.user_id).replace("{THUMBURL}", value.thumbnail_url).replace("{USERNAME}", value.user_name).replace("{TITLE}", value.title).replace("{VIEWERS}", value.viewer_count).replace("{TIME}", value.up_time);
-            html = insertBefore(html, '<!--' + value.game_id + '-->', Cards);
+            Cards = templateCards.replace("{USERID}", value.channel._id).replace("{THUMBURL}", value.thumbnail_url).replace("{USERNAME}", value.channel.name).replace("{TITLE}", value.channel.status).replace("{VIEWERS}", value.viewers).replace("{TIME}", value.up_time);
+            html = insertBefore(html, '<!--' + value.game + '-->', Cards);
 
         });
     }else{

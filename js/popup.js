@@ -71,11 +71,11 @@ function addLinks(data){
 
         if (localStorage.popup == 'true') {
 
-            $("#stream-" + value.user_id).click(function () { chrome.windows.create({ url: value.stream_url, type: 'popup', focused: true, width: 1050, height: 560 }); });
+            $("#stream-" + value.channel._id).click(function () { chrome.windows.create({ url: value.stream_url, type: 'popup', focused: true, width: 1050, height: 560 }); });
             
         } else {
 
-            $("#stream-" + value.user_id).click(function () { chrome.tabs.create({ url: value.stream_url }) })
+            $("#stream-" + value.channel._id).click(function () { chrome.tabs.create({ url: value.stream_url }) })
         
         }
 
