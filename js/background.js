@@ -79,7 +79,7 @@ function getStreams(addon) { //Get stream information for followed channels from
         },
 
         success: function (data) {
-
+            console.log(data);
             $.each(data.streams, function(key, value){ //Resolve some important information in stream attributes.
 
                 value.up_time = uptime(value.created_at);
@@ -172,7 +172,7 @@ function generateHTML(data) { //Generates and stores HTML used to display stream
 
             }
 
-            Cards = templateCards.replace("{USERID}", value.channel._id).replace("{THUMBURL}", value.thumbnail_url).replace("{USERNAME}", value.channel.name).replace("{TITLE}", value.channel.status).replace("{VIEWERS}", value.viewers).replace("{TIME}", value.up_time);
+            Cards = templateCards.replace("{USERID}", value.channel._id).replace("{THUMBURL}", value.thumbnail_url).replace("{USERNAME}", value.channel.display_name).replace("{TITLE}", value.channel.status).replace("{VIEWERS}", value.viewers).replace("{TIME}", value.up_time);
             html = insertBefore(html, '<!--' + value.game + '-->', Cards);
 
         });
