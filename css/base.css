@@ -105,7 +105,7 @@ body{
   min-height: 45px;
   
 }
-img{
+.thumb{
 
   border-radius: 2px;
   display: block;
@@ -245,6 +245,10 @@ padding-right: 7px;
   
 }
 
+.spinner img{
+  filter: brightness(var(--icon-brightness));
+}
+
 
 .scroll-icon{
 position: fixed;
@@ -273,6 +277,9 @@ line-height: 100px;
 
 }
 
+.scroll-icon img{
+  filter: brightness(var(--icon-brightness));
+}
 
 .spinner:hover{
 

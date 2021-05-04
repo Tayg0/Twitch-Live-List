@@ -11,7 +11,7 @@ var templateGameHeaderCard =
 
 var templateCards =
     '<div class="row row-stream" id="stream-{USERID}">\
-        <div class="card-img"><img src="{THUMBURL}" alt="Stream Thumb"></div>\
+        <div class="card-img"><img class="thumb" src="{THUMBURL}" alt="Stream Thumb"></div>\
         <div class="card-body-stream-info">\
             <span class="card-title">{USERNAME}</span></br>\
             <span class="card-text">{TITLE}</span>\

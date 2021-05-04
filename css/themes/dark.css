@@ -10,6 +10,8 @@
     --game-info-text-color:#ffffff;
     --game-info-subtext-color: #b4b4b4;
     --badge-color: #7248b4;
+
+    --icon-brightness: 1;
 }
 
 body{
