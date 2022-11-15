@@ -20,127 +20,92 @@ var templateCards =
         </div>\
     </div>';
 
-chrome.alarms.create("myAlarm", { delayInMinutes: 2.5, periodInMinutes: 2.5 });
-chrome.alarms.onAlarm.addListener(function () {
+chrome.alarms.create("refreshStreams", { delayInMinutes: 2.5, periodInMinutes: 2.5 });
+chrome.alarms.create("validateAuth", { delayInMinutes: 30, periodInMinutes: 30 });
+chrome.alarms.onAlarm.addListener(function (alarm) {
 
-    getFollows(localStorage.user_id);
-
+    if (alarm.name = 'refreshStreams') {
+        getFollowedStreams();
+    } 
+    else if (alarm.name = 'validateAuth') {
+        validateAuth();
+    }
+    
 });
 
-
-if (localStorage.configured != "true") {
+if (localStorage.authorized != 'true') {
 
     chrome.browserAction.setBadgeText({ text: "CLICK" });
     chrome.browserAction.setBadgeBackgroundColor({ color: "#6642A1" })
 
 }
 
+function getFollowedStreams() {
+    if (localStorage.authorized != 'true'){return;}
+    $.ajax({
 
-function getFollows(id) { //Get list of followed channels from Twitch API, send list to getStreams.
+        type: 'GET',
+        url: 'https://api.twitch.tv/helix/streams/followed?user_id=' + localStorage.user_id,
+        dataType: 'json',
+        headers: { 
+            'Client-Id': client_id,
+            'Authorization': 'Bearer ' + localStorage.access_token,
+            'Accept': 'application/vnd.twitchtv.v5+json'
+        },
+        success: function (data) {
 
-    if (localStorage.configured) {
+            $.each(data.data, function(key, value){ //Resolve some important information in stream attributes.
 
-        $.ajax({
+                value.up_time = uptime(value.started_at);
+                value.thumbnail_url = value.thumbnail_url.replace("{width}x{height}", "160x90");
+                value.stream_url = "https://www.twitch.tv/" + encodeURI(value.user_name);
 
-            type: 'GET',
-            url: 'https://api.twitch.tv/kraken/users/' + id + '/follows/channels?limit=100&sortby=last_broadcast',
-            dataType: 'json',
-            headers: { 
-                'Client-ID': client_id,
-                'Accept': 'application/vnd.twitchtv.v5+json'
-            },
-            success: function (data) {
+            });
 
-                let add = [];
-                $.each(data.follows, function (index, value) {
+            localStorage.streams = JSON.stringify(data.data);
+            chrome.browserAction.setBadgeText({ text: data.data.length + "" });
+            chrome.browserAction.setBadgeBackgroundColor(localStorage.theme.includes("mono") ? { color: '#636363'} : { color: '#7248b4'});
+            generateHTML(data.data)
 
-                    add.push(value.channel._id); //Generate URL query parameters, in this case a list of users.
-
-                });
-
-                getStreams(add);
-
+        },
+        error: function (data) {
+            if (data.status == 401) {
+                invalidated();
             }
-        });
-    }
+            
+        }
+    });
 }
 
-
-function getStreams(addon) { //Get stream information for followed channels from Twitch API, Update Local Storage, Set Badge.
+function validateAuth() {
 
     $.ajax({
 
         type: 'GET',
-        url: 'https://api.twitch.tv/kraken/streams?channel=' + encodeURI(addon.toString()),
+        url: 'https://id.twitch.tv/oauth2/validate',
         dataType: 'json',
         headers: { 
-            'Client-ID': client_id,
+            'Authorization': 'Bearer ' + localStorage.access_token,
             'Accept': 'application/vnd.twitchtv.v5+json'
         },
-
         success: function (data) {
-            console.log(data);
-            $.each(data.streams, function(key, value){ //Resolve some important information in stream attributes.
 
-                value.up_time = uptime(value.created_at);
-                value.thumbnail_url = value.preview.template.replace("{width}x{height}", "160x90");
-                value.stream_url = "https://www.twitch.tv/" + encodeURI(value.channel.name);
-
-            });
-
-            localStorage.streams = JSON.stringify(data.streams);
-            chrome.browserAction.setBadgeText({ text: data.streams.length + "" });
-            chrome.browserAction.setBadgeBackgroundColor(localStorage.theme.includes("mono") ? { color: '#636363'} : { color: '#7248b4'});
-            //translateGames(data.data);
-            generateHTML(data.streams)
+        },
+        error: function (data) {
+            if (data.status == 401) {
+                invalidated();
+            }
         }
     });
+
 }
 
-
-/* function translateGames(streams) { //Get game titles from Twitch API if not already present in LocalStorage.
-
-    var add = "";
-
-    $.each(streams, function (index, value) { //Generate URL query parameters, in this case a list of games.
-
-        if (!(value.game_id in game_ids)) {
-
-            add += "&id=" + value.game_id;
-
-        }
-
-    });
-
-
-    if (add.length > 0) {
-
-        $.ajax({
-
-            type: 'GET',
-            url: 'https://api.twitch.tv/kraken/games?first=100' + add,
-            dataType: 'json',
-            headers: { 
-                'Client-ID': client_id,
-                'Accept': 'application/vnd.twitchtv.v5+json'
-            },
-
-            success: function (data) {
-
-                $.each(data.data, function (index, value) {
-                    game_ids[value.id] = value.name;
-
-                });
-
-                localStorage.game_ids = JSON.stringify(game_ids);
-                generateHTML(streams)
-
-            }
-
-        });
-
-    } else { generateHTML(streams) }
-} */
+function invalidated() {
+    console.log("Twitch Auth Invalidated")
+    localStorage.authorized = 'false';
+    chrome.browserAction.setBadgeText({ text: "CLICK" });
+    chrome.browserAction.setBadgeBackgroundColor({ color: "#6642A1" })
+}
 
 function uptime(start_date) {
 
@@ -166,14 +131,14 @@ function generateHTML(data) { //Generates and stores HTML used to display stream
 
         $.each(data, function (index, value) {
 
-            if (!html.includes(value.game)) {
+            if (!html.includes(value.game_name)) {
 
-                html += templateGameHeaderCard.replace(/{GAME-ID}/g, value.game).replace("{GAME}", value.game);
+                html += templateGameHeaderCard.replace(/{GAME-ID}/g, value.game_name).replace("{GAME}", value.game_name);
 
             }
 
-            Cards = templateCards.replace("{USERID}", value.channel._id).replace("{THUMBURL}", value.thumbnail_url).replace("{USERNAME}", value.channel.display_name).replace("{TITLE}", value.channel.status).replace("{VIEWERS}", value.viewers).replace("{TIME}", value.up_time);
-            html = insertBefore(html, '<!--' + value.game + '-->', Cards);
+            Cards = templateCards.replace("{USERID}", value.user_id).replace("{THUMBURL}", value.thumbnail_url).replace("{USERNAME}", value.user_name).replace("{TITLE}", value.title).replace("{VIEWERS}", value.viewer_count).replace("{TIME}", value.up_time);
+            html = insertBefore(html, '<!--' + value.game_name + '-->', Cards);
 
         });
     }else{
@@ -191,14 +156,13 @@ function insertBefore(original, search, insert){ //Utility function for insertin
 
 }
 
-getFollows(localStorage.user_id);
-
+getFollowedStreams()
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
 
         if (request.message == "refresh")
-        getFollows(localStorage.user_id);
+        getFollowedStreams()
 
     }
 );

@@ -22,19 +22,21 @@
 
     <div class="container-fluid" id="options">
 
-
             <div class="card card-logo">
                 <img class="card-imgs" id="img-logo" src="media/icon_256.png" alt="Live On Twitch">
             </div>
 
             <div class="card card-form">
+                <button type="button" class="btn btn-primary float" id="button-auth">Authorize<br>With Twitch</button>
+                <div class="form-group" id="auth-info">
+                    <label for="input-username">Authorized User</label></br>
+                    <input type="text" class="form-control" id="input-username" disabled>
+                    <span id="user-id" class="subtext"> ID: </span>
+                </div>
+            </div>
+
+            <div class="card card-form">
                 <form>
-                    
-                    <div class="form-group">
-                        <label for="input-username">Twitch.tv Username</label></br>
-                        <input type="text" class="form-control" id="input-username">
-                        <span id="user-id" class="subtext"> ID: </span>
-                    </div>
 
                     <div class="form-group">
                             <label for="select-theme">Theme</label></br>

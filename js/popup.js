@@ -16,7 +16,7 @@ $(document).ready(function () {
 
     }, 100);
     
-    if(localStorage.configured == "true"){
+    if(localStorage.authorized == 'true'){
 
         $("#stream-list").html(localStorage.htmlCapsule);
         addLinks(JSON.parse(localStorage.streams));
@@ -64,18 +64,17 @@ function requestRefresh(){ //Sends a message to background script requesting a r
 };
 
 
-
 function addLinks(data){
 
     $.each(data, function (index, value) {
 
         if (localStorage.popup == 'true') {
 
-            $("#stream-" + value.channel._id).click(function () { chrome.windows.create({ url: value.stream_url, type: 'popup', focused: true, width: 1050, height: 560 }); });
+            $("#stream-" + value.user_id).click(function () { chrome.windows.create({ url: value.stream_url, type: 'popup', focused: true, width: 1050, height: 560 }); });
             
         } else {
 
-            $("#stream-" + value.channel._id).click(function () { chrome.tabs.create({ url: value.stream_url }) })
+            $("#stream-" + value.user_id).click(function () { chrome.tabs.create({ url: value.stream_url }) })
         
         }
 
